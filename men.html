@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StyleHub - Men Collection</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-area">
+      <h1>StyleHub</h1>
+      <p>Men Collection</p>
+    </div>
+
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="men.html">Men</a></li>
+        <li><a href="women.html">Women</a></li>
+      </ul>
+    </nav>
+
+    <div class="cart-box">
+      <a href="cart.html" id="cart-count">Cart: 0</a>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <section class="products-page">
+      <h2>Men Products</h2>
+      <p class="page-text">Browse our men's clothing collection.</p>
+
+      <!-- Sort -->
+      <div class="sort-section">
+        <label for="men-sort">Sort by Price:</label>
+        <select id="men-sort">
+          <option value="low-high">Low to High</option>
+          <option value="high-low">High to Low</option>
+        </select>
+      </div>
+
+      <!-- Products -->
+      <div class="product-container" id="men-products">
+
+        <!-- Product 1 -->
+        <div class="product-card" data-price="20">
+          <a href="men-product1.html">
+            <img src="images/men1.jpg" alt="Basic T-Shirt" />
+          </a>
+
+          <h3>
+            <a href="men-product1.html">Basic T-Shirt</a>
+          </h3>
+
+          <p class="price">$20</p>
+          <p>Size: M, L, XL</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card" data-price="35">
+          <a href="men-product2.html">
+            <img src="images/men2.jpg" alt="Casual Shirt" />
+          </a>
+
+          <h3>
+            <a href="men-product2.html">Casual Shirt</a>
+          </h3>
+
+          <p class="price">$35</p>
+          <p>Size: M, L, XL</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card" data-price="50">
+          <a href="men-product3.html">
+            <img src="images/men3.jpg" alt="Classic Jacket" />
+          </a>
+
+          <h3>
+            <a href="men-product3.html">Classic Jacket</a>
+          </h3>
+
+          <p class="price">$50</p>
+          <p>Size: L, XL</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card" data-price="28">
+          <a href="men-product4.html">
+            <img src="images/men4.jpg" alt="Comfort Hoodie" />
+          </a>
+
+          <h3>
+            <a href="men-product4.html">Comfort Hoodie</a>
+          </h3>
+
+          <p class="price">$28</p>
+          <p>Size: M, L</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h3>Contact Us</h3>
+    <p>Email: support@stylehub.com</p>
+    <p>Phone: +20 123 456 7890</p>
+    <p>&copy; 2026 StyleHub. All rights reserved.</p>
+  </footer>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+</body>
+</html>

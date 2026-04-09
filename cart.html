@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StyleHub - Cart</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-area">
+      <h1>StyleHub</h1>
+      <p>Your Shopping Cart</p>
+    </div>
+
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="men.html">Men</a></li>
+        <li><a href="women.html">Women</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+    </nav>
+
+    <div class="cart-box">
+      <a herf="cart.html" id="cart-count">Cart: 0</a>
+    </div>
+  </header>
+
+  <!-- Main Cart Section -->
+  <main>
+    <section class="cart-page">
+      <h2>Your Cart</h2>
+      <p class="page-text">
+        Review the products you added and check the total price.
+      </p>
+
+      <div class="cart-container">
+
+        <!-- Product 1 -->
+        <div class="cart-item">
+          <div class="cart-item-image">
+            <img src="images/men1.jpg" alt="Basic T-Shirt" />
+          </div>
+
+          <div class="cart-item-details">
+            <h3>Basic T-Shirt</h3>
+            <p>Price: $20</p>
+            <p>Quantity: 1</p>
+            <p>Size: M</p>
+            <button class="remove-btn">Remove</button>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="cart-item">
+          <div class="cart-item-image">
+            <img src="images/women1.jpg" alt="Elegant Blouse" />
+          </div>
+
+          <div class="cart-item-details">
+            <h3>Elegant Blouse</h3>
+            <p>Price: $25</p>
+            <p>Quantity: 2</p>
+            <p>Size: S</p>
+            <button class="remove-btn">Remove</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Cart Summary -->
+      <div class="cart-summary">
+        <h3>Cart Summary</h3>
+        <p>Subtotal: $70</p>
+        <p>Delivery Fee: $5</p>
+        <p><strong>Total Price: $75</strong></p>
+
+        <button class="checkout-btn">Proceed to Checkout</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h3>Contact Us</h3>
+    <p>Email: support@stylehub.com</p>
+    <p>Phone: +20 123 456 7890</p>
+    <p>&copy; 2026 StyleHub. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

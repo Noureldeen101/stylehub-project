@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StyleHub - Women Collection</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-area">
+      <h1>StyleHub</h1>
+      <p>Women Collection</p>
+    </div>
+
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="men.html">Men</a></li>
+        <li><a href="women.html">Women</a></li>
+      </ul>
+    </nav>
+
+    <div class="cart-box">
+      <a href="cart.html" id="cart-count">Cart: 0</a>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <section class="products-page">
+      <h2>Women Products</h2>
+      <p class="page-text">Browse our women's clothing collection.</p>
+
+      <!-- Sort -->
+      <div class="sort-section">
+        <label for="women-sort">Sort by Price:</label>
+        <select id="women-sort">
+          <option value="low-high">Low to High</option>
+          <option value="high-low">High to Low</option>
+        </select>
+      </div>
+
+      <!-- Products -->
+      <div class="product-container" id="women-products">
+
+        <!-- Product 1 -->
+        <div class="product-card" data-price="25">
+          <a href="women-product1.html">
+            <img src="images/women1.jpg" alt="Elegant Blouse" />
+          </a>
+
+          <h3>
+            <a href="women-product1.html">Elegant Blouse</a>
+          </h3>
+
+          <p class="price">$25</p>
+          <p>Size: S, M, L</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card" data-price="40">
+          <a href="women-product2.html">
+            <img src="images/women2.jpg" alt="Casual Dress" />
+          </a>
+
+          <h3>
+            <a href="women-product2.html">Casual Dress</a>
+          </h3>
+
+          <p class="price">$40</p>
+          <p>Size: S, M, L</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card" data-price="30">
+          <a href="women-product3.html">
+            <img src="images/women3.jpg" alt="Modern Skirt" />
+          </a>
+
+          <h3>
+            <a href="women-product3.html">Modern Skirt</a>
+          </h3>
+
+          <p class="price">$30</p>
+          <p>Size: S, M</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card" data-price="55">
+          <a href="women-product4.html">
+            <img src="images/women4.jpg" alt="Long Coat" />
+          </a>
+
+          <h3>
+            <a href="women-product4.html">Long Coat</a>
+          </h3>
+
+          <p class="price">$55</p>
+          <p>Size: M, L</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h3>Contact Us</h3>
+    <p>Email: support@stylehub.com</p>
+    <p>Phone: +20 123 456 7890</p>
+    <p>&copy; 2026 StyleHub. All rights reserved.</p>
+  </footer>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+</body>
+</html>

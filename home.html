@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StyleHub</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo-area">
+      <h1>StyleHub</h1>
+      <p>Your fashion, your style</p>
+    </div>
+
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#new-arrivals">New Arrivals</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="cart-box">
+      <a href="cart.html" id="cart-count">Cart: 0</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-text">
+        <h2>Discover Your Perfect Outfit</h2>
+        <p>Find the best clothing styles for men and women.</p>
+        <a href="#categories" class="btn" id="shop-now-btn">Shop Now</a>
+      </div>
+    </section>
+
+    <section class="categories" id="categories">
+      <h2>Shop by Category</h2>
+
+      <div class="category-container">
+        <div class="category-card">
+          <img src="images/men.jpg" alt="Men Collection" />
+          <h3>Men</h3>
+          <p>Explore simple, modern, and comfortable men's fashion.</p>
+          <a href="men.html" class="category-btn">View Collection</a>
+        </div>
+
+        <div class="category-card">
+          <img src="images/women.jpg" alt="Women Collection" />
+          <h3>Women</h3>
+          <p>Discover elegant, stylish, and trendy women's clothing.</p>
+          <a href="women.html" class="category-btn">View Collection</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="products" id="new-arrivals">
+      <h2>New Arrivals</h2>
+
+      <div class="product-container">
+        <div class="product-card">
+          <img src="https://via.placeholder.com/220x250" alt="Classic Jacket" />
+          <h3>Classic Jacket</h3>
+          <p class="price">$45</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+          <img src="https://via.placeholder.com/220x250" alt="Casual Dress" />
+          <h3>Casual Dress</h3>
+          <p class="price">$40</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+          <img src="https://via.placeholder.com/220x250" alt="Summer T-Shirt" />
+          <h3>Summer T-Shirt</h3>
+          <p class="price">$20</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <h2>About Our Brand</h2>
+      <p>
+        StyleHub is a fashion website project created to offer stylish clothes
+        for men and women. Our goal is to provide a clean shopping experience
+        with modern design and easy navigation.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer" id="contact">
+    <h3>Contact Us</h3>
+    <p>Email: support@stylehub.com</p>
+    <p>Phone: +20 123 456 7890</p>
+    <p>&copy; 2026 StyleHub. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
