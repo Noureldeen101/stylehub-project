@@ -17,14 +17,14 @@
 
     <nav class="navbar">
       <ul class="nav-links">
-        <li><a href="home.html">Home</a></li>
-        <li><a href="men.html">Men</a></li>
-        <li><a href="women.html">Women</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/men">Men</a></li>
+        <li><a href="/women">Women</a></li>
       </ul>
     </nav>
 
     <div class="cart-box">
-      <a href="cart.html" id="cart-count">Cart: 0</a>
+      <a href="/cart" id="cart-count">Cart: 0</a>
     </div>
   </header>
 
@@ -43,70 +43,28 @@
         </select>
       </div>
 
-      <!-- Products -->
+      <!-- Products (FROM DATABASE) -->
       <div class="product-container" id="women-products">
+        {% for product in products %}
+          <div class="product-card" data-price="{{ product[3] }}">
+            
+            <a href="/women-product{{ loop.index }}">
+              <img src="{{ url_for('static', filename='images/' ~ product[4]) }}" alt="{{ product[1] }}" />
+            </a>
 
-        <!-- Product 1 -->
-        <div class="product-card" data-price="25">
-          <a href="women-product1.html">
-            <img src="{{ url_for('static', filename='images/women1.jpg') }}" alt="Elegant Blouse" />
-          </a>
+            <h3>
+              <a href="/women-product{{ loop.index }}">{{ product[1] }}</a>
+            </h3>
 
-          <h3>
-            <a href="women-product1.html">Elegant Blouse</a>
-          </h3>
+            <p class="price">${{ product[3] }}</p>
+            <p>Category: {{ product[2] }}</p>
 
-          <p class="price">$25</p>
-          <p>Size: S, M, L</p>
-          <button class="add-to-cart-btn">Add to Cart</button>
-        </div>
+            <button class="add-to-cart-btn">Add to Cart</button>
 
-        <!-- Product 2 -->
-        <div class="product-card" data-price="40">
-          <a href="women-product2.html">
-            <img src="{{ url_for('static', filename='images/women2.jpg') }}" alt="Casual Dress" />
-          </a>
-
-          <h3>
-            <a href="women-product2.html">Casual Dress</a>
-          </h3>
-
-          <p class="price">$40</p>
-          <p>Size: S, M, L</p>
-          <button class="add-to-cart-btn">Add to Cart</button>
-        </div>
-
-        <!-- Product 3 -->
-        <div class="product-card" data-price="30">
-          <a href="women-product3.html">
-            <img src="{{ url_for('static', filename='images/women3.jpg') }}" alt="Modern Skirt" />
-          </a>
-
-          <h3>
-            <a href="women-product3.html">Modern Skirt</a>
-          </h3>
-
-          <p class="price">$30</p>
-          <p>Size: S, M</p>
-          <button class="add-to-cart-btn">Add to Cart</button>
-        </div>
-
-        <!-- Product 4 -->
-        <div class="product-card" data-price="55">
-          <a href="women-product4.html">
-            <img src="{{ url_for('static', filename='images/women4.jpg') }}" alt="Long Coat" />
-          </a>
-
-          <h3>
-            <a href="women-product4.html">Long Coat</a>
-          </h3>
-
-          <p class="price">$55</p>
-          <p>Size: M, L</p>
-          <button class="add-to-cart-btn">Add to Cart</button>
-        </div>
-
+          </div>
+        {% endfor %}
       </div>
+
     </section>
   </main>
 
@@ -118,7 +76,7 @@
     <p>&copy; 2026 StyleHub. All rights reserved.</p>
   </footer>
 
-  <!-- JS -->
   <script src="{{ url_for('static', filename='script.js') }}"></script>
+
 </body>
 </html>
