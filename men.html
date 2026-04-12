@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StyleHub - Men Collection</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
 
@@ -49,7 +49,7 @@
         <!-- Product 1 -->
         <div class="product-card" data-price="20">
           <a href="men-product1.html">
-            <img src="images/men1.jpg" alt="Basic T-Shirt" />
+            <img src="{{ url_for('static', filename='images/men1.jpg') }}" alt="Basic T-Shirt" />
           </a>
 
           <h3>
@@ -64,7 +64,7 @@
         <!-- Product 2 -->
         <div class="product-card" data-price="35">
           <a href="men-product2.html">
-            <img src="images/men2.jpg" alt="Casual Shirt" />
+            <img src="{{ url_for('static', filename='images/men2.jpg') }}" alt="Casual Shirt" />
           </a>
 
           <h3>
@@ -79,7 +79,7 @@
         <!-- Product 3 -->
         <div class="product-card" data-price="50">
           <a href="men-product3.html">
-            <img src="images/men3.jpg" alt="Classic Jacket" />
+            <img src="{{ url_for('static', filename='images/men3.jpg') }}" alt="Classic Jacket" />
           </a>
 
           <h3>
@@ -94,7 +94,7 @@
         <!-- Product 4 -->
         <div class="product-card" data-price="28">
           <a href="men-product4.html">
-            <img src="images/men4.jpg" alt="Comfort Hoodie" />
+            <img src="{{ url_for('static', filename='images/men4.jpg') }}" alt="Comfort Hoodie" />
           </a>
 
           <h3>
@@ -119,6 +119,6 @@
   </footer>
 
   <!-- JS -->
-  <script src="script.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
