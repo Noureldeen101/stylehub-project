@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StyleHub</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
 
@@ -43,14 +43,14 @@
 
       <div class="category-container">
         <div class="category-card">
-          <img src="images/men.jpg" alt="Men Collection" />
+          <img src="{{ url_for('static', filename='images/men.jpg') }}" alt="Men Collection" />
           <h3>Men</h3>
           <p>Explore simple, modern, and comfortable men's fashion.</p>
           <a href="men.html" class="category-btn">View Collection</a>
         </div>
 
         <div class="category-card">
-          <img src="images/women.jpg" alt="Women Collection" />
+          <img src="{{ url_for('static', filename='images/women.jpg') }}" alt="Women Collection" />
           <h3>Women</h3>
           <p>Discover elegant, stylish, and trendy women's clothing.</p>
           <a href="women.html" class="category-btn">View Collection</a>
@@ -102,6 +102,6 @@
     <p>&copy; 2026 StyleHub. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
