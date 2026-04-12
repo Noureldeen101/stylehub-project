@@ -17,7 +17,7 @@
 
     <nav class="navbar">
       <ul class="nav-links">
-        <li><a href="/home">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="/men">Men</a></li>
         <li><a href="/women">Women</a></li>
       </ul>
@@ -45,22 +45,22 @@
 
       <!-- Products (NOW FROM DATABASE) -->
       <div class="product-container" id="men-products">
-        {% for product in products %}
-          <div class="product-card" data-price="{{ product[3] }}">
-            <a href="/men-product{{ loop.index }}">
-              <img src="{{ url_for('static', filename='images/' + product[4]) }}" alt="{{ product[1] }}" />
-            </a>
+  {% for product in products %}
+    <div class="product-card" data-price="{{ product[3] }}">
+      <a href="/men-product{{ loop.index }}">
+        <img src="{{ url_for('static', filename='images/' ~ product[4]) }}" alt="{{ product[1] }}" />
+      </a>
 
-            <h3>
-              <a href="/men-product{{ loop.index }}">{{ product[1] }}</a>
-            </h3>
+      <h3>
+        <a href="/men-product{{ loop.index }}">{{ product[1] }}</a>
+      </h3>
 
-            <p class="price">${{ product[3] }}</p>
-            <p>Category: {{ product[2] }}</p>
-            <button class="add-to-cart-btn">Add to Cart</button>
-          </div>
-        {% endfor %}
-      </div>
+      <p class="price">${{ product[3] }}</p>
+      <p>Category: {{ product[2] }}</p>
+      <button class="add-to-cart-btn">Add to Cart</button>
+    </div>
+  {% endfor %}
+</div>
 
     </section>
   </main>
