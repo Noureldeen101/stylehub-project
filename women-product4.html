@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StyleHub -  long coat	</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
 
@@ -33,7 +33,7 @@
       <div class="product-details-container">
 
         <div class="product-image-box">
-          <img src="images/women4.jpg" alt="long coat" />
+          <img src="{{ url_for('static', filename='images/women4.jpg') }}" alt="long coat" />
         </div>
 
         <div class="product-info-box">
@@ -102,6 +102,6 @@
     <p>&copy; 2026 StyleHub. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
