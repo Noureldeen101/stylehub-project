@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Successful</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 
+  <header class="header">
+    <div class="logo-area">
+      <h1>StyleHub</h1>
+      <p>Order Success</p>
+    </div>
+
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/men">Men</a></li>
+        <li><a href="/women">Women</a></li>
+        <li><a href="/cart">Cart</a></li>
+      </ul>
+    </nav>
+
+    <div class="cart-box">
+      <a href="/cart" id="cart-count">Cart: {{ cart_count }}</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="checkout-page">
+      <h2>Order Placed Successfully</h2>
+      <p class="page-text">Thank you for shopping with StyleHub.</p>
+
+      <div class="checkout-container">
+        <div class="checkout-form">
+          <h3>Success</h3>
+          <p>Your order has been saved successfully.</p>
+          <p><strong>Order Number:</strong> #{{ order_id }}</p>
+          <br>
+          <a href="/" class="checkout-btn">Back to Home</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <h3>Contact Us</h3>
+    <p>Email: support@stylehub.com</p>
+    <p>Phone: +20 123 456 7890</p>
+    <p>&copy; 2026 StyleHub. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
