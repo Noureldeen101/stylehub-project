@@ -1,1 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StyleHub - Orders</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-area">
+      <h1>StyleHub</h1>
+      <p>Saved Orders</p>
+    </div>
+
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/men">Men</a></li>
+        <li><a href="/women">Women</a></li>
+        <li><a href="/cart">Cart</a></li>
+      </ul>
+    </nav>
+
+    <div class="cart-box">
+      <a href="/cart" id="cart-count">Cart: {{ cart_count }}</a>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <section class="cart-page">
+      <h2>Orders History</h2>
+      <p class="page-text">Here are all saved orders from the database.</p>
+
+      <div class="cart-container">
+
+        {% if orders %}
+          {% for order in orders %}
+            <div class="cart-item">
+              <div class="cart-item-details">
+
+                <h3>Order #{{ order.id }}</h3>
+
+                <p><strong>Full Name:</strong> {{ order.full_name }}</p>
+                <p><strong>Phone Number:</strong> {{ order.phone_number }}</p>
+                <p><strong>Address:</strong> {{ order.address }}</p>
+                <p><strong>Payment Method:</strong> {{ order.payment_method }}</p>
+
+                <p><strong>Subtotal:</strong> ${{ order.subtotal }}</p>
+                <p><strong>Delivery Fee:</strong> ${{ order.delivery_fee }}</p>
+                <p><strong>Total:</strong> ${{ order.total }}</p>
+
+                <!-- 🔥 NEW BUTTON -->
+                <a href="/order/{{ order.id }}" class="checkout-btn">
+                  View Order Details
+                </a>
+
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p>No orders found yet.</p>
+        {% endif %}
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h3>Contact Us</h3>
+    <p>Email: support@stylehub.com</p>
+    <p>Phone: +20 123 456 7890</p>
+    <p>&copy; 2026 StyleHub. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
