@@ -1,1 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StyleHub - Product Details</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
 
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-area">
+      <h1>StyleHub</h1>
+      <p>Your fashion, your style</p>
+    </div>
+
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/men">Men</a></li>
+        <li><a href="/women">Women</a></li>
+      </ul>
+    </nav>
+
+    <div class="cart-box">
+      <a href="/cart" id="cart-count">Cart: {{ cart_count }}</a>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <section class="product-details-page">
+      <div class="product-details-container">
+
+        <!-- Product Image -->
+        <div class="product-image-box">
+          <img src="{{ url_for('static', filename='images/' ~ product[4]) }}" alt="{{ product[1] }}" />
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info-box">
+          <h2>{{ product[1] }}</h2>
+
+          <p class="product-price">${{ product[3] }}</p>
+
+          <p class="product-description">
+            {{ product[5] }}
+          </p>
+
+          <!-- Static colors (for now) -->
+          <div class="product-colors">
+            <h3>Available Colors</h3>
+            <ul>
+              <li>Black</li>
+              <li>White</li>
+              <li>Beige</li>
+            </ul>
+          </div>
+
+          <!-- Static sizes (for now) -->
+          <div class="product-sizes">
+            <h3>Available Sizes</h3>
+            <ul>
+              <li>S</li>
+              <li>M</li>
+              <li>L</li>
+            </ul>
+          </div>
+
+          <!-- Size chart -->
+          <div class="size-chart">
+            <h3>Mini Size Chart</h3>
+            <table>
+              <tr>
+                <th>Size</th>
+                <th>Chest / Waist</th>
+                <th>Length</th>
+              </tr>
+              <tr>
+                <td>S</td>
+                <td>84 cm</td>
+                <td>58 cm</td>
+              </tr>
+              <tr>
+                <td>M</td>
+                <td>90 cm</td>
+                <td>60 cm</td>
+              </tr>
+              <tr>
+                <td>L</td>
+                <td>96 cm</td>
+                <td>62 cm</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- Add to Cart (CONNECTED TO BACKEND) -->
+          <a href="/add-to-cart/{{ product[0] }}" class="add-to-cart-btn">Add to Cart</a>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h3>Contact Us</h3>
+    <p>Email: support@stylehub.com</p>
+    <p>Phone: +20 123 456 7890</p>
+    <p>&copy; 2026 StyleHub. All rights reserved.</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
