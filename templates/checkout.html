@@ -1,1 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StyleHub - Checkout</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-area">
+      <h1>StyleHub</h1>
+      <p>Checkout</p>
+    </div>
+
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="/home">Home</a></li>
+        <li><a href="/men">Men</a></li>
+        <li><a href="/women">Women</a></li>
+        <li><a href="/cart">Cart</a></li>
+      </ul>
+    </nav>
+
+    <div class="cart-box">
+      <span>Cart: {{ session.get('cart') | length if session.get('cart') else 0 }}</span>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <section class="checkout-page">
+      <h2>Checkout</h2>
+      <p>Please fill in your information to complete your order.</p>
+
+      <div class="checkout-container">
+
+        <!-- LEFT: FORM -->
+        <div class="checkout-form">
+          <h3>Customer Information</h3>
+
+          <form method="POST" action="/checkout">
+
+            <label>Full Name</label>
+            <input type="text" name="full_name" required>
+
+            <label>Phone Number</label>
+            <input type="text" name="phone_number" required>
+
+            <label>Address</label>
+            <input type="text" name="address" required>
+
+            <!-- Payment Method -->
+            <label>Payment Method</label>
+            <select name="payment_method" id="payment_method" required>
+              <option value="">Select payment method</option>
+              <option value="Cash on Delivery">Cash on Delivery</option>
+              <option value="Visa">Visa</option>
+            </select>
+
+            <!-- VISA FIELDS -->
+            <div id="visa-fields" style="display: none; margin-top: 10px;">
+
+              <label>Card Number</label>
+              <input type="text" name="card_number" placeholder="Enter card number">
+
+              <label>Expiry Date</label>
+              <input type="text" name="expiry_date" placeholder="MM/YY">
+
+              <label>CVV</label>
+              <input type="text" name="cvv" placeholder="CVV">
+
+            </div>
+
+            <button type="submit" class="checkout-btn">Place Order</button>
+
+          </form>
+        </div>
+
+        <!-- RIGHT: ORDER SUMMARY -->
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+
+          {% if cart_items %}
+            {% for item in cart_items %}
+              <p>{{ item.name }} x {{ item.quantity }} 
+              <span>${{ item.price * item.quantity }}</span></p>
+            {% endfor %}
+
+            <hr>
+
+            <p>Subtotal: <span>${{ subtotal }}</span></p>
+            <p>Delivery Fee: <span>$5</span></p>
+            <p><strong>Total: ${{ total }}</strong></p>
+
+          {% else %}
+            <p>Your cart is empty.</p>
+          {% endif %}
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h3>Contact Us</h3>
+    <p>Email: support@stylehub.com</p>
+    <p>Phone: +20 123 456 7890</p>
+    <p>&copy; 2026 StyleHub</p>
+  </footer>
+
+  <!-- JS: Show/Hide Visa -->
+  <script>
+    const paymentMethod = document.getElementById("payment_method");
+    const visaFields = document.getElementById("visa-fields");
+
+    paymentMethod.addEventListener("change", function () {
+      if (this.value === "Visa") {
+        visaFields.style.display = "block";
+      } else {
+        visaFields.style.display = "none";
+      }
+    });
+  </script>
+
+</body>
+</html>
