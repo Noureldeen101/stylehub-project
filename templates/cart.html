@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StyleHub - Cart</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-area">
+      <h1>StyleHub</h1>
+      <p>Your Shopping Cart</p>
+    </div>
+
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/men">Men</a></li>
+        <li><a href="/women">Women</a></li>
+      </ul>
+    </nav>
+
+    <div class="cart-box">
+      <a href="/cart" id="cart-count">Cart: {{ cart_count }}</a>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <section class="cart-page">
+      <h2>Your Cart</h2>
+      <p class="page-text">Review your selected items below.</p>
+
+      <div class="cart-container">
+
+        {% if cart_items %}
+          {% for item in cart_items %}
+            <div class="cart-item">
+
+              <!-- Image -->
+              <div class="cart-item-image">
+                <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.name }}">
+              </div>
+
+              <!-- Details -->
+              <div class="cart-item-details">
+                <h3>{{ item.name }}</h3>
+                <p><strong>Price:</strong> ${{ item.price }}</p>
+
+                <!-- 🔥 Quantity Controls -->
+                <p>
+                  <strong>Quantity:</strong>
+                  <a href="/decrease-cart/{{ item.id }}" class="remove-btn">-</a>
+                  {{ item.quantity }}
+                  <a href="/increase-cart/{{ item.id }}" class="checkout-btn">+</a>
+                </p>
+
+                <p><strong>Item Total:</strong> ${{ item.item_total }}</p>
+
+                <!-- Remove -->
+                <a href="/remove-from-cart/{{ item.id }}" class="remove-btn">Remove</a>
+              </div>
+
+            </div>
+          {% endfor %}
+
+          <!-- Totals -->
+          <div class="cart-summary">
+            <h3>Cart Summary</h3>
+
+            <p>Subtotal: ${{ subtotal }}</p>
+            <p>Delivery Fee: ${{ delivery_fee }}</p>
+            <p><strong>Total: ${{ total }}</strong></p>
+
+            <!-- Checkout -->
+            <a href="/checkout" class="checkout-btn">Proceed to Checkout</a>
+          </div>
+
+        {% else %}
+          <p>Your cart is empty.</p>
+        {% endif %}
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h3>Contact Us</h3>
+    <p>Email: support@stylehub.com</p>
+    <p>Phone: +20 123 456 7890</p>
+    <p>&copy; 2026 StyleHub. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
