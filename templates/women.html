@@ -59,13 +59,24 @@
             </h3>
 
             <!-- Price -->
-            <p class="price">${{ product[3] }}</p>
+              <p class="price">${{ product[3] }}</p>
 
+{% if product[5] == 0 %}
+  <p style="color:red;">Out of Stock</p>
+{% elif product[5] == 1 %}
+  <p style="color:orange;">Only 1 left</p>
+{% else %}
+  <p style="color:green;">In Stock</p>
+{% endif %}         
             <!-- Category -->
             <p>Category: {{ product[2] }}</p>
 
             <!-- Add to Cart (CONNECTED TO BACKEND) -->
-            <a href="/add-to-cart/{{ product[0] }}" class="add-to-cart-btn">Add to Cart</a>
+            {% if product.stock > 0 %}
+    <a href="/add-to-cart/{{ product.id }}">Add to Cart</a>
+{% else %}
+    <button disabled>Out of Stock</button>
+{% endif %}
 
           </div>
         {% endfor %}
