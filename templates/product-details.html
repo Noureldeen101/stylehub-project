@@ -44,10 +44,15 @@
 
           <p class="product-price">${{ product[3] }}</p>
 
-          <p class="product-description">
-            {{ product[5] }}
-          </p>
+          {% if product[5] == 0 %}
+    <p style="color:red;">Out of Stock</p>
+{% elif product[5] == 1 %}
+    <p style="color:orange;">Only 1 left</p>
+{% else %}
+    <p style="color:green;">In Stock</p>
+{% endif %}
 
+        
           <!-- Static colors (for now) -->
           <div class="product-colors">
             <h3>Available Colors</h3>
@@ -96,9 +101,12 @@
           </div>
 
           <!-- Add to Cart (CONNECTED TO BACKEND) -->
-          <a href="/add-to-cart/{{ product[0] }}" class="add-to-cart-btn">Add to Cart</a>
-
-        </div>
+{% if product.stock > 0 %}
+    <a href="/add-to-cart/{{ product.id }}">Add to Cart</a>
+{% else %}
+    <button disabled>Out of Stock</button>
+{% endif %}
+                  </div>
 
       </div>
     </section>
