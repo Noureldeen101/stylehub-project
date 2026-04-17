@@ -44,34 +44,50 @@
       </div>
 
       <!-- Products (FROM DATABASE) -->
-      <div class="product-container" id="men-products">
-        {% for product in products %}
-          <div class="product-card" data-price="{{ product[3] }}">
+<div class="product-container" id="men-products">
+{% for product in products %}
 
-            <!-- Product Image -->
-            <a href="/product/{{ product[0] }}">
-              <img src="{{ url_for('static', filename='images/' ~ product[4]) }}" alt="{{ product[1] }}" />
-            </a>
+<div class="product-card" data-price="{{ product[3] }}">
 
-            <!-- Product Name -->
-            <h3>
-              <a href="/product/{{ product[0] }}">{{ product[1] }}</a>
-            </h3>
+  <!-- Product Image -->
+  <a href="/product/{{ product[0] }}">
+    <img src="{{ url_for('static', filename='images/' ~ product[4]) }}">
+  </a>
 
-            <!-- Price -->
-            <p class="price">${{ product[3] }}</p>
+  <!-- Product Name -->
+  <h3>
+    <a href="/product/{{ product[0] }}">{{ product[1] }}</a>
+  </h3>
 
-            <!-- Category -->
-            <p>Category: {{ product[2] }}</p>
+  <!-- Price -->
+  <p class="price">${{ product[3] }}</p>
 
-            <!-- Add to Cart (CONNECTED TO BACKEND) -->
-            <a href="/add-to-cart/{{ product[0] }}" class="add-to-cart-btn">Add to Cart</a>
+  <!-- Stock -->
+  {% if product[5] == 0 %}
+    <p style="color:red;">Out of Stock</p>
+  {% elif product[5] == 1 %}
+    <p style="color:orange;">Only 1 left</p>
+  {% else %}
+    <p style="color:green;">In Stock</p>
+  {% endif %}
 
-          </div>
-        {% endfor %}
-      </div>
+  <!-- Category -->
+  <p>Category: {{ product[2] }}</p>
 
-    </section>
+  <!-- Add to Cart -->
+{% if product.stock > 0 %}
+    <a href="/add-to-cart/{{ product.id }}">Add to Cart</a>
+{% else %}
+    <button disabled>Out of Stock</button>
+{% endif %}
+  
+  </a>
+
+</div>
+
+{% endfor %}
+</div>
+      <    </section>
   </main>
 
   <!-- Footer -->
