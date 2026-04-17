@@ -1,9 +1,26 @@
 from flask import Flask, render_template, session, redirect, url_for, request
 import sqlite3
 
+def create_products_table():
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS products (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        category TEXT,
+        price REAL,
+        image TEXT,
+        stock INTEGER
+    )
+    """)
+
+    conn.commit()
+    conn.close()
+
 app = Flask(__name__)
 app.secret_key = "mysecretkey123"
-
 
 # =========================
 # DATABASE CONNECTION
@@ -12,7 +29,6 @@ def get_db_connection():
     conn = sqlite3.connect("database.db")
     conn.row_factory = sqlite3.Row
     return conn
-
 
 # =========================
 # CREATE ORDERS TABLE
@@ -37,7 +53,6 @@ def create_orders_table():
     conn.commit()
     conn.close()
 
-
 # =========================
 # CREATE ORDER ITEMS TABLE
 # =========================
@@ -58,7 +73,6 @@ def create_order_items_table():
     conn.commit()
     conn.close()
 
-
 # =========================
 # CART COUNT HELPER
 # =========================
@@ -66,14 +80,16 @@ def get_cart_count():
     cart = session.get("cart", {})
     return sum(cart.values())
 
-
 # =========================
 # HOME PAGE
 # =========================
 @app.route("/")
 def home():
-    return render_template("home.html", cart_count=get_cart_count())
+    conn = sqlite3.connect("database.db")
+    products = conn.execute("SELECT * FROM products").fetchall()
+    conn.close()
 
+    return render_template("home.html", products=products)
 
 # =========================
 # MEN PAGE
@@ -85,7 +101,6 @@ def men():
     conn.close()
     return render_template("men.html", products=products, cart_count=get_cart_count())
 
-
 # =========================
 # WOMEN PAGE
 # =========================
@@ -96,7 +111,6 @@ def women():
     conn.close()
     return render_template("women.html", products=products, cart_count=get_cart_count())
 
-
 # =========================
 # PRODUCT DETAILS
 # =========================
@@ -106,7 +120,6 @@ def product_details(product_id):
     product = conn.execute("SELECT * FROM products WHERE id = ?", (product_id,)).fetchone()
     conn.close()
     return render_template("product-details.html", product=product, cart_count=get_cart_count())
-
 
 # =========================
 # ADD TO CART
@@ -129,7 +142,6 @@ def add_to_cart(product_id):
 
     return redirect(url_for("cart"))
 
-
 # =========================
 # INCREASE CART QUANTITY
 # =========================
@@ -147,7 +159,6 @@ def increase_cart(product_id):
     session.modified = True
 
     return redirect(url_for("cart"))
-
 
 # =========================
 # DECREASE CART QUANTITY
@@ -168,7 +179,6 @@ def decrease_cart(product_id):
 
     return redirect(url_for("cart"))
 
-
 # =========================
 # REMOVE FROM CART
 # =========================
@@ -184,7 +194,6 @@ def remove_from_cart(product_id):
     session.modified = True
 
     return redirect(url_for("cart"))
-
 
 # =========================
 # CART PAGE
@@ -227,9 +236,8 @@ def cart():
         cart_count=get_cart_count()
     )
 
-
 # =========================
-# CHECKOUT
+# CHECKOUT (FIXED)
 # =========================
 @app.route("/checkout", methods=["GET", "POST"])
 def checkout():
@@ -299,6 +307,12 @@ def checkout():
                 VALUES (?, ?, ?, ?)
             """, (order_id, item["id"], item["quantity"], item["price"]))
 
+            # ✅ FIXED: decrease stock
+            cursor.execute(
+                "UPDATE products SET stock = stock - ? WHERE id = ?",
+                (item["quantity"], item["id"])
+            )
+
         conn.commit()
         conn.close()
 
@@ -317,52 +331,11 @@ def checkout():
         cart_count=get_cart_count()
     )
 
-
-# =========================
-# ORDERS PAGE
-# =========================
-@app.route("/orders")
-def orders():
-    conn = get_db_connection()
-    orders = conn.execute("SELECT * FROM orders ORDER BY id DESC").fetchall()
-    conn.close()
-
-    return render_template("orders.html", orders=orders, cart_count=get_cart_count())
-
-
-# =========================
-# ORDER DETAILS PAGE
-# =========================
-@app.route("/order/<int:order_id>")
-def order_details(order_id):
-    conn = get_db_connection()
-
-    order = conn.execute(
-        "SELECT * FROM orders WHERE id = ?",
-        (order_id,)
-    ).fetchone()
-
-    items = conn.execute("""
-        SELECT order_items.quantity, order_items.price, products.name, products.image
-        FROM order_items
-        JOIN products ON order_items.product_id = products.id
-        WHERE order_items.order_id = ?
-    """, (order_id,)).fetchall()
-
-    conn.close()
-
-    return render_template(
-        "order-details.html",
-        order=order,
-        items=items,
-        cart_count=get_cart_count()
-    )
-
-
 # =========================
 # RUN APP
 # =========================
 if __name__ == "__main__":
+    create_products_table()
     create_orders_table()
     create_order_items_table()
     app.run(debug=True)
