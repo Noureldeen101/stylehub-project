@@ -52,17 +52,19 @@
 
                 <!-- 🔥 Quantity Controls -->
                 <p>
-                  <strong>Quantity:</strong>
-                  <a href="/decrease-cart/{{ item.id }}" class="remove-btn">-</a>
-                  {{ item.quantity }}
-                  <a href="/increase-cart/{{ item.id }}" class="checkout-btn">+</a>
-                </p>
+    <strong>Quantity:</strong> {{ item.quantity }}
 
-                <p><strong>Item Total:</strong> ${{ item.item_total }}</p>
+    <a href="/increase/{{ item.key }}">+</a>
+    <a href="/decrease/{{ item.key }}">-</a>
+    <a href="/remove/{{ item.key }}">Remove</a>
+</p>
+                
+                  
+                
 
-                <!-- Remove -->
-                <a href="/remove-from-cart/{{ item.id }}" class="remove-btn">Remove</a>
-              </div>
+                
+                
+            </div>
 
             </div>
           {% endfor %}
