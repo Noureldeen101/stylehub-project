@@ -124,23 +124,7 @@ def product_details(product_id):
 # =========================
 # ADD TO CART
 # =========================
-@app.route("/add-to-cart/<int:product_id>")
-def add_to_cart(product_id):
-    if "cart" not in session:
-        session["cart"] = {}
 
-    cart = session["cart"]
-    product_id = str(product_id)
-
-    if product_id in cart:
-        cart[product_id] += 1
-    else:
-        cart[product_id] = 1
-
-    session["cart"] = cart
-    session.modified = True
-
-    return redirect(url_for("cart"))
 
 # =========================
 # INCREASE CART QUANTITY
@@ -198,42 +182,48 @@ def remove_from_cart(product_id):
 # =========================
 # CART PAGE
 # =========================
+
 @app.route("/cart")
 def cart():
     cart = session.get("cart", {})
 
-    conn = get_db_connection()
+    conn = sqlite3.connect("database.db")
+    conn.row_factory = sqlite3.Row   # 🔥 IMPORTANT
+    cursor = conn.cursor()
+
     cart_items = []
     subtotal = 0
 
-    for product_id, quantity in cart.items():
-        product = conn.execute("SELECT * FROM products WHERE id = ?", (product_id,)).fetchone()
+    for key, quantity in cart.items():
+        product_id = key   # ✅ fix for size system
 
+        product = cursor.execute(
+    "SELECT * FROM products WHERE id = ?",
+    (product_id.split("_")[0],)
+).fetchone()
+            
+            
+    
         if product:
             item_total = product["price"] * quantity
             subtotal += item_total
 
             cart_items.append({
-                "id": product["id"],
-                "name": product["name"],
-                "price": product["price"],
-                "image": product["image"],
-                "quantity": quantity,
-                "item_total": item_total
-            })
+    "key": key,
+    "id": product["id"],
+    "name": product["name"],
+    "price": product["price"],
+    "image": product["image"],
+    "quantity": quantity,
+    "item_total": item_total
+})
 
     conn.close()
-
-    delivery_fee = 5
-    total = subtotal + delivery_fee if subtotal > 0 else 0
 
     return render_template(
         "cart.html",
         cart_items=cart_items,
-        subtotal=subtotal,
-        delivery_fee=delivery_fee,
-        total=total,
-        cart_count=get_cart_count()
+        subtotal=subtotal
     )
 
 # =========================
@@ -248,13 +238,17 @@ def checkout():
     subtotal = 0
 
     for product_id, quantity in cart.items():
-        product = conn.execute("SELECT * FROM products WHERE id = ?", (product_id,)).fetchone()
+        product = conn.execute(
+            "SELECT * FROM products WHERE id = ?", 
+            (product_id.split("_")[0],)
+        ).fetchone()
 
         if product:
             item_total = product["price"] * quantity
             subtotal += item_total
 
             cart_items.append({
+                "key": product_id,
                 "id": product["id"],
                 "name": product["name"],
                 "price": product["price"],
@@ -332,6 +326,146 @@ def checkout():
     )
 
 # =========================
+@app.route("/admin", methods=["GET", "POST"])
+def admin():
+    print("ADMIN PAGE OPENED")
+
+    conn = sqlite3.connect("database.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    if request.method == "POST":
+        print("FORM SUBMITTED")   # 👈 ADD THIS
+
+        name = request.form.get("name")
+        category = request.form.get("category")
+        price = request.form.get("price")
+        image = request.form.get("image")
+        stock = request.form.get("stock")
+
+        print(name, category, price, image, stock)  # 👈 ADD THIS
+
+        cursor.execute(
+            "INSERT INTO products (name, category, price, image, stock) VALUES (?, ?, ?, ?, ?)",
+            (name, category, price, image, stock)
+        )
+        conn.commit()
+
+    products = cursor.execute("SELECT * FROM products").fetchall()
+    conn.close()
+
+    return render_template("admin.html", products=products)
+
+
+@app.route("/delete/<int:id>")
+def delete_product(id):
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM products WHERE id = ?", (id,))
+    conn.commit()
+    conn.close()
+
+    return redirect("/admin")
+
+
+@app.route("/edit/<int:id>", methods=["GET", "POST"])
+def edit_product(id):
+    conn = sqlite3.connect("database.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    if request.method == "POST":
+        name = request.form.get("name")
+        category = request.form.get("category")
+        price = request.form.get("price")
+        image = request.form.get("image")
+        stock = request.form.get("stock")
+
+        cursor.execute("""
+            UPDATE products
+            SET name=?, category=?, price=?, image=?, stock=?
+            WHERE id=?
+        """, (name, category, price, image, stock, id))
+
+        conn.commit()
+        conn.close()
+        return redirect("/admin")
+
+    product = cursor.execute("SELECT * FROM products WHERE id=?", (id,)).fetchone()
+    conn.close()
+
+    return render_template("edit.html", product=product)
+
+
+@app.route("/orders")
+def orders():
+    conn = sqlite3.connect("database.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    orders = cursor.execute("SELECT * FROM orders").fetchall()
+
+    conn.close()
+
+    return render_template("orders.html", orders=orders)
+
+
+@app.route("/add-to-cart", methods=["POST"])
+def add_to_cart():
+    product_id = request.form.get("product_id")
+    size = request.form.get("size")
+
+    cart = session.get("cart", {})
+
+    key = str(product_id) + "_" + str(size)
+
+    if key in cart:
+        cart[key] += 1
+    else:
+        cart[key] = 1
+
+    session["cart"] = cart
+
+    return redirect("/cart")
+
+@app.route("/test")
+def test():
+    return "TEST WORKING"
+
+@app.route("/increase/<key>")
+def increase(key):
+    cart = session.get("cart", {})
+
+    if key in cart:
+        cart[key] += 1
+
+    session["cart"] = cart
+    return redirect("/cart")
+
+@app.route("/decrease/<key>")
+def decrease(key):
+    cart = session.get("cart", {})
+
+    if key in cart:
+        cart[key] -= 1
+        if cart[key] <= 0:
+            del cart[key]
+
+    session["cart"] = cart
+    return redirect("/cart")
+
+@app.route("/remove/<key>")
+def remove(key):
+    cart = session.get("cart", {})
+
+    if key in cart:
+        del cart[key]
+
+    session["cart"] = cart
+    return redirect("/cart")
+
+
 # RUN APP
 # =========================
 if __name__ == "__main__":
