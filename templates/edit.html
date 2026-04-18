@@ -1,17 +1,11 @@
 <h2>Edit Product</h2>
 
 <form method="POST">
-
-    <input name="name" value="{{ product['name'] }}"><br><br>
-
-    <input name="category" value="{{ product['category'] }}"><br><br>
-
-    <input name="price" value="{{ product['price'] }}"><br><br>
-
-    <input name="image" value="{{ product['image'] }}"><br><br>
-
-    <input name="stock" value="{{ product['stock'] }}"><br><br>
+    <input name="name" value="{{ product.name }}">
+    <input name="category" value="{{ product.category }}">
+    <input name="price" value="{{ product.price }}">
+    <input name="image" value="{{ product.image }}">
+    <input name="stock" value="{{ product.stock }}">
 
     <button type="submit">Update</button>
-
 </form>
