@@ -72,10 +72,13 @@
             <p>Category: {{ product[2] }}</p>
 
             <!-- Add to Cart (CONNECTED TO BACKEND) -->
-            {% if product.stock > 0 %}
-    <a href="/add-to-cart/{{ product.id }}">Add to Cart</a>
+          {% if product[5] > 0 %}
+<form method="POST" action="/add-to-cart">
+    <input type="hidden" name="product_id" value="{{ product[0] }}">
+    <button type="submit">Add to Cart</button>
+</form>
 {% else %}
-    <button disabled>Out of Stock</button>
+<button disabled>Out of Stock</button>
 {% endif %}
 
           </div>
